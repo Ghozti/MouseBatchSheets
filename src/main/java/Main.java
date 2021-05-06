@@ -8,12 +8,12 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.GenericSignatureFormatError;
-import java.nio.file.FileStore;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Main {
     private static Sheets sheetsService;
     private static String name = "google sheets ex";
-    private static String id = "1Ij02Y_GKUHW8gLqDluOg44nPk3D9-BJd8NiL9mPC8vc";
+    private static String id = "1TpcR-fm-b7aSfHzgsReL1bPMhltWzLu7EATcIeTRlDM";
 
     private static Credential authorize() throws IOException, GenericSignatureFormatError, GeneralSecurityException {
         InputStream in = Main.class.getResourceAsStream("/credentials.json");
@@ -36,5 +36,25 @@ public class Main {
         return credential;
     }
 
+    public static Sheets getSheetsService() throws GeneralSecurityException, IOException {
+        Credential credential = authorize();
+        return new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport(),JacksonFactory.getDefaultInstance(),credential).setApplicationName(name).build();
+    }
 
+    public static void main(String...args) throws GeneralSecurityException, IOException {
+        sheetsService = getSheetsService();
+        String range = "Sheet1!A1:C1";
+
+        ValueRange response = sheetsService.spreadsheets().values().get(id,range).execute();
+
+        List<List<Object>> values = response.getValues();
+
+        if(values == null || values.isEmpty()){
+            System.out.println("no data");
+        }else {
+            for (List row : values) {
+                System.out.printf("%s, %s\n", row.get(0), row.get(2));
+            }
+        }
+    }
 }
