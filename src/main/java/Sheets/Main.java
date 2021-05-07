@@ -44,7 +44,7 @@ public class Main {
 
     public static void main(String...args) throws GeneralSecurityException, IOException {
         sheetsService = getSheetsService();
-        String range = "Sheet1!A1:C1";
+        String range = "Sheet1!A:C";
 
         ValueRange response = sheetsService.spreadsheets().values().get(id,range).execute();
 
@@ -54,7 +54,7 @@ public class Main {
             System.out.println("no data");
         }else {
             for (List row : values) {
-                System.out.printf("%s, %s\n", row.get(0), row.get(1));
+                System.out.printf("%s, %s\n", row.get(0),row.get(1));
             }
         }
     }
