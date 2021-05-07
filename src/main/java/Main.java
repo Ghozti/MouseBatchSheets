@@ -20,8 +20,8 @@ import java.util.List;
 
 public class Main {
     private static Sheets sheetsService;
-    private static String name = "google sheets ex";
-    private static String id = "1TpcR-fm-b7aSfHzgsReL1bPMhltWzLu7EATcIeTRlDM";
+    private static String name = "test";
+    private static String id = "1XF_HoV6HJhxrd3yKWG0sMzIU5wMU2EBQ2pUbLkAg3sQ";
 
     private static Credential authorize() throws IOException, GenericSignatureFormatError, GeneralSecurityException {
         InputStream in = Main.class.getResourceAsStream("/credentials.json");
@@ -47,13 +47,13 @@ public class Main {
 
         ValueRange response = sheetsService.spreadsheets().values().get(id,range).execute();
 
-        List<List<Object>> values = response.getValues();
+       List<List<Object>> values = response.getValues();
 
         if(values == null || values.isEmpty()){
             System.out.println("no data");
         }else {
             for (List row : values) {
-                System.out.printf("%s, %s\n", row.get(0), row.get(2));
+                System.out.printf("%s, %s\n", row.get(0), row.get(1));
             }
         }
     }
