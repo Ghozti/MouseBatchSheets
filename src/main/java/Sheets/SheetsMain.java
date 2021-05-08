@@ -19,13 +19,13 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class SheetsMain {
     private static Sheets sheetsService;
     private static String name = "test";
     private static String id = "1XF_HoV6HJhxrd3yKWG0sMzIU5wMU2EBQ2pUbLkAg3sQ";
 
     private static Credential authorize() throws IOException, GenericSignatureFormatError, GeneralSecurityException {
-        InputStream in = Main.class.getResourceAsStream("/credentials.json");
+        InputStream in = SheetsMain.class.getResourceAsStream("/credentials.json");
         GoogleClientSecrets secrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
 
         List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS);
@@ -42,18 +42,23 @@ public class Main {
         return new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport(),JacksonFactory.getDefaultInstance(),credential).setApplicationName(name).build();
     }
 
-    public static void main(String...args) throws GeneralSecurityException, IOException {
+
+    public static List<List<Object>> getValues() throws GeneralSecurityException, IOException {
         sheetsService = getSheetsService();
         String range = "Sheet1!A:C";
 
         ValueRange response = sheetsService.spreadsheets().values().get(id,range).execute();
 
-       List<List<Object>> values = response.getValues();
+        List<List<Object>> values = response.getValues();
+        return values;
+    }
 
-        if(values == null || values.isEmpty()){
+    public static void main(String...args) throws GeneralSecurityException, IOException {
+
+        if(getValues() == null || getValues().isEmpty()){
             System.out.println("no data");
         }else {
-            for (List row : values) {
+            for (List row : getValues()) {
                 System.out.printf("%s, %s\n", row.get(0),row.get(1));
             }
         }
