@@ -1,6 +1,7 @@
 package Bot;
 
 import Sheets.SheetsMain;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
@@ -17,17 +18,18 @@ public class Listener implements MessageCreateListener {
 
         if (event.getMessageContent().equals("$help")){
             event.getChannel().sendMessage("Hello, ".concat(event.getMessageAuthor().getDisplayName().concat("! how may i help?")));
-
             try {
                 if(SheetsMain.getValues() == null || SheetsMain.getValues().isEmpty()){
                     System.out.println("no data");
                 }else {
                     int i = 1;
+                    StringBuilder list = new StringBuilder();
                     for (List row : SheetsMain.getValues()) {
-                        event.getChannel().sendMessage(String.valueOf(i).concat(". ".concat(row.get(0).toString())));
+                        list.append(String.valueOf(i).concat(". ".concat(row.get(0).toString())).concat("\n"));
                         i++;
                     }
-                    i = 1;
+                    event.getChannel().sendMessage(list.toString());
+                    event.getChannel().sendMessage("This is all I currently have in my database, for other issues please ask the human staff.");
                 }
             } catch (GeneralSecurityException e) {
                 e.printStackTrace();
