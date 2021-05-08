@@ -31,9 +31,7 @@ public class Listener implements MessageCreateListener {
                     event.getChannel().sendMessage(list.toString());
                     event.getChannel().sendMessage("This is all I currently have in my database, for other issues please ask the human staff.");
                 }
-            } catch (GeneralSecurityException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (GeneralSecurityException | IOException e) {
                 e.printStackTrace();
             }
         }
