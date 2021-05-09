@@ -16,12 +16,16 @@ public class HelperListener implements MessageCreateListener {
         if (event.getMessageContent().equals("$quit")){
             return;
         }else {
+            if (helped){
+                return;
+            }
             try {
                 for (List row : SheetsMain.getValues()) {
                    if(event.getMessageContent().equals(row.get(0).toString())){
                        event.getChannel().sendMessage(row.get(1).toString());
+                       helped = true;
+                       break;
                    }
-                   helped = true;
                 }
             } catch (GeneralSecurityException | IOException e) {
                 e.printStackTrace();
