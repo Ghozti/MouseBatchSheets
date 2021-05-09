@@ -14,7 +14,7 @@ public class HelperListener implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         if (event.getMessageContent().equals("$quit")){
-            return;
+            helped = true;
         }else {
             if (helped){
                 return;
