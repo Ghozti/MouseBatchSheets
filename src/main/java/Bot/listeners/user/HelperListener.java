@@ -1,4 +1,4 @@
-package Bot.listeners;
+package Bot.listeners.user;
 
 import Sheets.SheetsMain;
 import org.javacord.api.event.message.MessageCreateEvent;
