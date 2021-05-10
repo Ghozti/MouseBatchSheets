@@ -1,12 +1,14 @@
-Sheets/SheetsMain.java
- Sheets.SheetsMain
 Bot/Token.java
  Bot.Token
-Bot/listeners/sudoUser/SudoListener.java
- Bot.listeners.sudoUser.SudoListener
+Sheets/SheetsMain.java
+ Sheets.SheetsMain
 Bot/listeners/user/Listener.java
  Bot.listeners.user.Listener
-Bot/listeners/user/HelperListener.java
- Bot.listeners.user.HelperListener
+Bot/listeners/sudoUser/SudoCommand.java
+ Bot.listeners.sudoUser.SudoCommand
+Bot/listeners/sudoUser/SudoListener.java
+ Bot.listeners.sudoUser.SudoListener
 Bot/DiscordBot.java
  Bot.DiscordBot
+Bot/listeners/user/HelperListener.java
+ Bot.listeners.user.HelperListener

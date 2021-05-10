@@ -14,6 +14,7 @@ public class HelperListener implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         if (event.getMessageContent().equals("$quit")){
+            event.getChannel().sendMessage("have a nice day!");
             helped = true;
         }else {
             if (helped){
