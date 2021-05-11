@@ -10,6 +10,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +52,18 @@ public class SheetsMain {
 
         List<List<Object>> values = response.getValues();
         return values;
+    }
+
+    public static void addToSheet(String problem, String sol) throws GeneralSecurityException, IOException {
+
+        ValueRange appendToBody = new ValueRange().setValues(Arrays.asList(Arrays.asList(problem,sol)));
+
+        AppendValuesResponse response = getSheetsService().spreadsheets().values()
+                .append(id,"sheet1",appendToBody)
+                .setValueInputOption("USER_ENTERED")
+                .setInsertDataOption("INSERT_ROWS")
+                .setIncludeValuesInResponse(true)
+                .execute();
     }
 
     public static void main(String...args) throws GeneralSecurityException, IOException {
