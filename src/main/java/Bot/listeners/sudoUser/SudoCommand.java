@@ -1,26 +1,25 @@
 package Bot.listeners.sudoUser;
 
+import Sheets.SheetsMain;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class SudoCommand implements MessageCreateListener {
-
-    public static int commandPort;
-
-    private String type,content;
 
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
 
-        type = event.getMessageContent().substring(0,event.getMessageContent().indexOf(':')-1);
-        content = event.getMessageContent().substring(event.getMessageContent().indexOf(':')-1);
+        System.out.println(event.getMessageContent());
 
-        switch (commandPort){
-            case 1:
-                //TODO add stuff to the spreadsheets
-                //sheets add row 0 type, sheets add row 1 content
-                break;
+        String type = event.getMessageContent().substring(0,event.getMessageContent().indexOf(':')-1);
+        String content = event.getMessageContent().substring(event.getMessageContent().indexOf(':')-1);
 
+        try {
+            SheetsMain.addToSheet(type,content);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
         }
     }
 }

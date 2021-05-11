@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SheetsMain {
     private static Sheets sheetsService;
-    private static String name = "test";
+    private static String name = "Mouse Squad Sheets";
     private static String id = "1XF_HoV6HJhxrd3yKWG0sMzIU5wMU2EBQ2pUbLkAg3sQ";
 
     private static Credential authorize() throws IOException, GenericSignatureFormatError, GeneralSecurityException {
@@ -55,11 +55,12 @@ public class SheetsMain {
     }
 
     public static void addToSheet(String problem, String sol) throws GeneralSecurityException, IOException {
+        sheetsService = getSheetsService();
 
         ValueRange appendToBody = new ValueRange().setValues(Arrays.asList(Arrays.asList(problem,sol)));
 
-        AppendValuesResponse response = getSheetsService().spreadsheets().values()
-                .append(id,"sheet1",appendToBody)
+        AppendValuesResponse response = sheetsService.spreadsheets().values()
+                .append(id,"Sheet1",appendToBody)
                 .setValueInputOption("USER_ENTERED")
                 .setInsertDataOption("INSERT_ROWS")
                 .setIncludeValuesInResponse(true)
@@ -67,6 +68,8 @@ public class SheetsMain {
     }
 
     public static void main(String...args) throws GeneralSecurityException, IOException {
+
+        //addToSheet("t","t");
 
         if(getValues() == null || getValues().isEmpty()){
             System.out.println("no data");

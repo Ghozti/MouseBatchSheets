@@ -1,18 +1,16 @@
 package Bot.listeners.sudoUser;
 
+import Bot.DiscordBot;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
 public class SudoListener implements MessageCreateListener {
 
-    public static boolean accessGranted = false;
-
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
-        if (event.getMessage().getAuthor().isBotOwner()){
-            if (event.getMessage().equals("$sudo -addP")){
-                accessGranted = true;
-            }
+
+        if (event.getMessageContent().equals("$sudo -addP") && event.getMessage().getAuthor().isBotOwner()){
+            event.getChannel().sendMessage("Enter data:");
         }
     }
 }
