@@ -25,6 +25,7 @@ public class Listener implements MessageCreateListener {
                         i++;
                     }
                     event.getChannel().sendMessage(list.toString());
+                    event.getChannel().sendMessage("Please type your issue as displayed in the list. **DO NOT INCLUDE THE NUMBER NOR A $ PREFIX**");
                     event.getChannel().sendMessage("This is all I currently have in my database, for other issues please ask the human staff.");
                     event.getChannel().sendMessage("Please type **$quit** to quit now, or type in your problem as written in the list");
                 }
